@@ -1,6 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const connectDB = require('./src/config/ConnectToMongoDb');
+const authRoutes = require("./src/routes/authRoutes");
+const hospitalRoutes = require( "./src/routes/hospitalRoutes");
+const bedRoutes = require("./src/routes/bedRoutes");
 const dotenv = require('dotenv');
 
 dotenv.config(); 
@@ -14,8 +17,10 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 // Routes
-const authRoutes = require("./src/routes/authRoutes");
+
 app.use("/api/auth", authRoutes);
+app.use("/hospitals", hospitalRoutes);
+app.use("/beds", bedRoutes);
 
 app.get("/", (req, res) => {
   res.send("Welcome to the Hospital Management System API");
