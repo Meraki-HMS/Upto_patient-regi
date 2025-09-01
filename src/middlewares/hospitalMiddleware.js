@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { getHospitalConnection } = require("../config/dbManager.js");
 const BedSchema = require("../models/BedScehma");
+const BedAssignmentSchema = require("../models/BedAssignment.js");
 
 async function hospitalMiddleware(req, res, next) {
   try {
@@ -9,7 +10,8 @@ async function hospitalMiddleware(req, res, next) {
     const conn = await getHospitalConnection(hospitalId);
 
     // Attach Bed model for this hospital DB
-    req.Bed = conn.model("Bed", BedSchema);
+    req.Bed = conn.models.Bed || conn.model("Bed", BedSchema);
+    req.BedAssignment = conn.models.BedAssignment || conn.model("BedAssignment", BedAssignmentSchema);
     req.hospitalId = hospitalId;
 
     next();

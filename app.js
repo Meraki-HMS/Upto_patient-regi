@@ -4,6 +4,7 @@ const connectDB = require('./src/config/ConnectToMongoDb');
 const authRoutes = require("./src/routes/authRoutes");
 const hospitalRoutes = require( "./src/routes/hospitalRoutes");
 const bedRoutes = require("./src/routes/bedRoutes");
+const bedAssignmentRoutes = require("./src/routes/bedAssignmentRoutes");
 const dotenv = require('dotenv');
 
 dotenv.config(); 
@@ -21,7 +22,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/hospitals", hospitalRoutes);
 app.use("/beds", bedRoutes);
-
+app.use("/bedassignments", bedAssignmentRoutes);
 app.get("/", (req, res) => {
   res.send("Welcome to the Hospital Management System API");
 });
